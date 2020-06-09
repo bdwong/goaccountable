@@ -22,81 +22,21 @@ func main() {
 
 func onReady() {
 	systray.SetTemplateIcon(icon.Data, icon.Data)
-	systray.SetTitle("GoAccountable1")
-	systray.SetTooltip("What did you commit to do?1")
-	mQuitOrig := systray.AddMenuItem("Quit", "Quit the whole app")
-	go func() {
-		<-mQuitOrig.ClickedCh
-		fmt.Println("Requesting quit")
-		systray.Quit()
-		fmt.Println("Finished quitting")
-	}()
+	systray.SetTitle("GoAccountable1")                // Required to register menu
+	systray.SetTooltip("What did you commit to do?1") // init tooltip
 	// We can manipulate the systray in other goroutines
 	go func() {
 		systray.SetTemplateIcon(icon.Data, icon.Data)
 		systray.SetTitle("GoAccountable")
 		systray.SetTooltip("What did you commit to do?")
-		// mChange := systray.AddMenuItem("Change Me", "Change Me")
-		// mChecked := systray.AddMenuItem("Unchecked", "Check Me")
-		// mEnabled := systray.AddMenuItem("Enabled", "Enabled")
-		// // Sets the icon of a menu item. Only available on Mac.
-		// mEnabled.SetTemplateIcon(icon.Data, icon.Data)
 
-		// systray.AddMenuItem("Ignored", "Ignored")
-
-		// subMenuTop := systray.AddMenuItem("SubMenu", "SubMenu Test (top)")
-		// subMenuMiddle := subMenuTop.AddSubMenuItem("SubMenu - Level 2", "SubMenu Test (middle)")
-		// subMenuBottom := subMenuMiddle.AddSubMenuItem("SubMenu - Level 3", "SubMenu Test (bottom)")
-		// subMenuBottom2 := subMenuMiddle.AddSubMenuItem("Panic!", "SubMenu Test (bottom)")
-
-		// mUrl := systray.AddMenuItem("Open UI", "my home")
 		mQuit := systray.AddMenuItem("Quit", "Quit the whole app")
 
 		// Sets the icon of a menu item. Only available on Mac.
 		mQuit.SetIcon(icon.Data)
 
-		// systray.AddSeparator()
-		// mToggle := systray.AddMenuItem("Toggle", "Toggle the Quit button")
-		// shown := true
-		// toggle := func() {
-		// 	if shown {
-		// 		subMenuBottom.Check()
-		// 		subMenuBottom2.Hide()
-		// 		mQuitOrig.Hide()
-		// 		mEnabled.Hide()
-		// 		shown = false
-		// 	} else {
-		// 		subMenuBottom.Uncheck()
-		// 		subMenuBottom2.Show()
-		//      mQuitOrig.Show()
-		// 		mEnabled.Show()
-		// 		shown = true
-		// 	}
-		// }
-
 		for {
 			select {
-			// case <-mChange.ClickedCh:
-			// 	mChange.SetTitle("I've Changed")
-			// case <-mChecked.ClickedCh:
-			// 	if mChecked.Checked() {
-			// 		mChecked.Uncheck()
-			// 		mChecked.SetTitle("Unchecked")
-			// 	} else {
-			// 		mChecked.Check()
-			// 		mChecked.SetTitle("Checked")
-			// 	}
-			// case <-mEnabled.ClickedCh:
-			// 	mEnabled.SetTitle("Disabled")
-			// 	mEnabled.Disable()
-			// case <-mUrl.ClickedCh:
-			// 	open.Run("https://www.getlantern.org")
-			// case <-subMenuBottom2.ClickedCh:
-			// 	panic("panic button pressed")
-			// case <-subMenuBottom.ClickedCh:
-			// 	toggle()
-			// case <-mToggle.ClickedCh:
-			// 	toggle()
 			case <-mQuit.ClickedCh:
 				systray.Quit()
 				fmt.Println("Quit2 now...")
